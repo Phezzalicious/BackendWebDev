@@ -110,8 +110,16 @@ const clientSchema = new Schema({
 
 
 const IsInARTCC = (client) => {
-
-    //use this method for filtering
+    switch(client.planned_depairport || client.planned_destairport){
+        case KORD:
+        case KMDW:
+        parseClient(client);
+        default:
+            break;
+        git add
+    }
+    
+    
 }
 
 
@@ -120,7 +128,7 @@ const writeClientModelListToPersist = (client_list) => {
     const password = process.env.MONGODB_ATLAS_PWD;
 
     //this example uses ES6 template literals for string interpolation: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
-    const uri = `mongodb+srv://cidm4382:${password}@cidm4382-m35ko.mongodb.net/vatsim?retryWrites=true&w=majority`;
+    const uri = `mongodb+srv://Phelps:${password}@cluster0-33gew.mongodb.net/test?retryWrites=true&w=majority`;
     mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
 
     const Client = mongoose.model('Client', clientSchema);    
@@ -333,7 +341,7 @@ const parseVATSIM = (data) => {
         } 
         
         if(!client.callsign.startsWith(";") && !client.callsign.startsWith(" ") && start){
-
+            //call the method right now 
             //add to list
             clientModelList.push(createClientModel(client));
             //console.log(`Callsign: ${client.callsign}`);
